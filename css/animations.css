@@ -1,0 +1,87 @@
+/* ==========================================================================
+   BakeCost - Micro-interactions, Keyframe Animations & Transitions
+   ========================================================================== */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleUp {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(217, 72, 102, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(217, 72, 102, 0);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.25s ease-out forwards;
+}
+
+.animate-scale-up {
+  animation: scaleUp 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.pulse-primary {
+  animation: pulseGlow 2s infinite;
+}
+
+/* Donut segment interactive hover */
+.donut-segment {
+  transition: stroke-width 0.2s ease, opacity 0.2s ease;
+  cursor: pointer;
+}
+
+.donut-segment:hover {
+  stroke-width: 38px;
+  opacity: 0.9;
+}
+
+/* Button & Card Micro-Interactions */
+.interactive-hover {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.interactive-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
