@@ -1,21 +1,21 @@
 /**
- * BakeCost - Quote & WhatsApp Order Formatter
- * Generates professional baker quotes, WhatsApp DM texts, and printable cost sheets
+ * BakeCost - Cute Bento Box & Cupcake Quote Generator
+ * Generates aesthetic WhatsApp order DM summaries and cute printable cost sheets
  */
 
 const QuoteGenerator = {
   /**
-   * Format a WhatsApp quote ready for customer DMs
+   * Format a WhatsApp quote ready for customer DMs with cute bento & cupcake aesthetic
    */
   generateWhatsAppText(recipe, calcResult, settings, clientDetails = {}) {
     const currency = settings.currency || '₹';
-    const bakery = settings.bakeryName || 'Artisan Bakery';
+    const bakery = settings.bakeryName || 'Little Bento & Co. 🎀';
     const phone = settings.contactNumber || '';
     const insta = settings.instagramHandle || '';
 
-    const clientName = clientDetails.name ? `Dear *${clientDetails.name}*,` : 'Hello!';
-    const orderDate = clientDetails.deliveryDate ? `\n📅 *Required By:* ${clientDetails.deliveryDate}` : '';
-    const specialNotes = clientDetails.notes ? `\n📝 *Custom Notes:* ${clientDetails.notes}` : '';
+    const clientName = clientDetails.name ? `Dear *${clientDetails.name}* 💖,` : 'Hello! 🎀';
+    const orderDate = clientDetails.deliveryDate ? `\n📅 *Needed For:* ${clientDetails.deliveryDate}` : '';
+    const messagePiping = clientDetails.notes ? `\n💌 *Custom Message/Piping:* "${clientDetails.notes}"` : '';
 
     const pkgItems = (recipe.packaging || [])
       .filter(p => (parseFloat(p.qty) || 0) > 0)
@@ -39,25 +39,25 @@ const QuoteGenerator = {
 
     return `${clientName}
 
-Thank you for choosing *${bakery}*! Here are the quotation details for your custom bake:
+Thank you for choosing *${bakery}*! 🧁✨ Here are the details for your custom bake order:
 
 🍰 *Item:* ${recipe.name}
-🔢 *Quantity/Size:* ${calcResult.yieldAmount} ${calcResult.yieldUnit} (~${calcResult.servingCount} servings)${orderDate}${includesText}${specialNotes}
+🔢 *Quantity:* ${calcResult.yieldAmount} ${calcResult.yieldUnit} (~${calcResult.servingCount} servings)${orderDate}${messagePiping}${includesText}
 
 💰 *Total Investment:* *${priceFormatted}*${unitPriceFormatted}
 
 ───────────────
-✨ *How to confirm:*
-1. Reply *'CONFIRM'* to lock your baking slot.
-2. Advance payment: 50% to initiate preparation.
-3. Freshly baked strictly with premium gourmet ingredients!
+🎀 *How to confirm your slot:*
+1. Reply with *'YES CONFIRM'* & your delivery address.
+2. 50% advance booking confirms your baking slot.
+3. Freshly handmade with premium gourmet ingredients & love! 🍓🧸
 
 🧁 *${bakery}*
 ${phone ? `📞 ${phone} | ` : ''}${insta ? `📸 ${insta}` : ''}`;
   },
 
   /**
-   * Generates printable HTML string for browser print/PDF export
+   * Generates cute printable HTML string for browser print/PDF export
    */
   generatePrintableCostSheet(recipe, calcResult, settings, mode = 'internal') {
     const currency = settings.currency || '₹';
@@ -103,10 +103,10 @@ ${phone ? `📞 ${phone} | ` : ''}${insta ? `📸 ${insta}` : ''}`;
         <meta charset="utf-8">
         <title>${recipe.name} - ${isClient ? 'Quotation' : 'Recipe Cost Sheet'}</title>
         <style>
-          @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap');
+          @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap');
           body {
-            font-family: 'Outfit', sans-serif;
-            color: #1e293b;
+            font-family: 'Quicksand', sans-serif;
+            color: #2b1e22;
             margin: 0;
             padding: 30px;
             background: #fff;
@@ -116,20 +116,21 @@ ${phone ? `📞 ${phone} | ` : ''}${insta ? `📸 ${insta}` : ''}`;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 2px solid #f1f5f9;
+            border-bottom: 2px dashed #f0e6dd;
             padding-bottom: 20px;
             margin-bottom: 25px;
           }
           .brand-title {
-            font-size: 24px;
+            font-size: 26px;
             font-weight: 700;
-            color: #d94866;
+            color: #ff6b8b;
           }
           .doc-type {
-            font-size: 14px;
+            font-size: 13px;
             text-transform: uppercase;
             letter-spacing: 1px;
-            color: #64748b;
+            color: #a49198;
+            font-weight: 700;
           }
           .grid {
             display: grid;
@@ -138,14 +139,14 @@ ${phone ? `📞 ${phone} | ` : ''}${insta ? `📸 ${insta}` : ''}`;
             margin-bottom: 25px;
           }
           .card {
-            background: #f8fafc;
-            border-radius: 10px;
+            background: #fffbf9;
+            border-radius: 16px;
             padding: 16px;
-            border: 1px solid #e2e8f0;
+            border: 1px solid #fcefe9;
           }
           .card h4 {
             margin: 0 0 10px 0;
-            color: #334155;
+            color: #ff6b8b;
             font-size: 15px;
           }
           table {
@@ -153,34 +154,36 @@ ${phone ? `📞 ${phone} | ` : ''}${insta ? `📸 ${insta}` : ''}`;
             border-collapse: collapse;
             margin-bottom: 20px;
             font-size: 13px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
           }
           th {
-            background: #f1f5f9;
+            background: #fff0f3;
             text-align: left;
             padding: 8px 12px;
-            color: #475569;
-            font-weight: 600;
+            color: #d84869;
+            font-weight: 700;
+            border-radius: 6px;
           }
           td {
             padding: 8px 12px;
-            border-bottom: 1px solid #f1f5f9;
+            border-bottom: 1px solid #fdf2f4;
           }
           .text-right { text-align: right; }
           .font-medium { font-weight: 600; }
           .total-box {
-            background: #fff1f2;
-            border: 1px solid #ffe4e6;
-            border-radius: 10px;
-            padding: 18px;
+            background: linear-gradient(135deg, #fff0f3, #ffe5ec);
+            border: 2px dashed #ff8fa3;
+            border-radius: 18px;
+            padding: 20px;
             margin-top: 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
           }
           .price-huge {
-            font-size: 26px;
-            font-weight: 700;
-            color: #d94866;
+            font-size: 30px;
+            font-weight: 800;
+            color: #ff5277;
           }
           @media print {
             body { padding: 0; }
@@ -191,25 +194,25 @@ ${phone ? `📞 ${phone} | ` : ''}${insta ? `📸 ${insta}` : ''}`;
       <body>
         <div class="header">
           <div>
-            <div class="brand-title">🎂 ${settings.bakeryName || 'BakeCost'}</div>
-            <div style="font-size: 13px; color: #64748b;">${settings.contactNumber || ''} | ${settings.instagramHandle || ''}</div>
+            <div class="brand-title">🎀 ${settings.bakeryName || 'Little Bento & Co.'}</div>
+            <div style="font-size: 13px; color: #9c8a90;">${settings.contactNumber || ''} | ${settings.instagramHandle || ''}</div>
           </div>
           <div class="text-right">
-            <div class="doc-type">${isClient ? 'Official Quotation' : 'Master Cost Sheet'}</div>
-            <div style="font-size: 12px; color: #94a3b8;">Generated on ${new Date().toLocaleDateString()}</div>
+            <div class="doc-type">${isClient ? 'Official Bake Quotation' : 'Master Bento Cost Sheet'}</div>
+            <div style="font-size: 12px; color: #bcaaa4;">${new Date().toLocaleDateString()}</div>
           </div>
         </div>
 
         <div class="card" style="margin-bottom: 20px;">
-          <h2 style="margin: 0 0 6px 0; font-size: 20px; color: #0f172a;">${recipe.name}</h2>
-          <p style="margin: 0; color: #64748b; font-size: 13px;">${recipe.description || 'Custom handcrafted baked specialty.'}</p>
-          <div style="margin-top: 10px; display: flex; gap: 20px; font-size: 13px; font-weight: 600;">
+          <h2 style="margin: 0 0 6px 0; font-size: 20px; color: #2b1e22;">${recipe.name}</h2>
+          <p style="margin: 0; color: #7d6b72; font-size: 13px;">${recipe.description || 'Cute handcrafted custom bake specialty.'}</p>
+          <div style="margin-top: 10px; display: flex; gap: 20px; font-size: 13px; font-weight: 700; color: #ff6b8b;">
             <span>Yield: ${calcResult.yieldAmount} ${calcResult.yieldUnit}</span>
             <span>Servings: ~${calcResult.servingCount} portions</span>
           </div>
         </div>
 
-        <h4 style="margin: 15px 0 8px 0; color: #334155;">Ingredients Breakdown</h4>
+        <h4 style="margin: 15px 0 8px 0; color: #ff6b8b;">🌾 Ingredients Breakdown</h4>
         <table>
           <thead>
             <tr>
@@ -224,11 +227,11 @@ ${phone ? `📞 ${phone} | ` : ''}${insta ? `📸 ${insta}` : ''}`;
         </table>
 
         ${packagingRows ? `
-          <h4 style="margin: 15px 0 8px 0; color: #334155;">Packaging & Presentation</h4>
+          <h4 style="margin: 15px 0 8px 0; color: #ff6b8b;">🍱 Bento Box, Liners & Packaging</h4>
           <table>
             <thead>
               <tr>
-                <th>Item</th>
+                <th>Packaging Item</th>
                 <th>Qty</th>
                 ${!isClient ? `<th>Unit Cost</th><th class="text-right">Cost</th>` : ''}
               </tr>
@@ -240,11 +243,11 @@ ${phone ? `📞 ${phone} | ` : ''}${insta ? `📸 ${insta}` : ''}`;
         ` : ''}
 
         ${decorationsRows ? `
-          <h4 style="margin: 15px 0 8px 0; color: #334155;">Decorations & Extras</h4>
+          <h4 style="margin: 15px 0 8px 0; color: #ff6b8b;">✨ Toppers, Pearls & Candles</h4>
           <table>
             <thead>
               <tr>
-                <th>Item</th>
+                <th>Decoration Item</th>
                 <th>Qty</th>
                 ${!isClient ? `<th>Unit Cost</th><th class="text-right">Cost</th>` : ''}
               </tr>
@@ -276,7 +279,7 @@ ${phone ? `📞 ${phone} | ` : ''}${insta ? `📸 ${insta}` : ''}`;
             <div class="card">
               <h4>📊 Cost & Margin Summary</h4>
               <div style="font-size: 13px; display: flex; justify-content: space-between; margin-bottom: 6px;">
-                <span>Total Production Cost:</span>
+                <span>Total True Cost:</span>
                 <strong>${currency}${calcResult.totalProductionCost.toFixed(2)}</strong>
               </div>
               <div style="font-size: 13px; display: flex; justify-content: space-between; margin-bottom: 6px;">
@@ -293,8 +296,8 @@ ${phone ? `📞 ${phone} | ` : ''}${insta ? `📸 ${insta}` : ''}`;
 
         <div class="total-box">
           <div>
-            <div style="font-size: 13px; color: #881337; font-weight: 600;">FINAL SELLING PRICE</div>
-            <div style="font-size: 12px; color: #9f1239;">Includes all ingredients, handcrafted labor & premium packaging</div>
+            <div style="font-size: 14px; color: #ff5277; font-weight: 800;">TOTAL SELLING PRICE</div>
+            <div style="font-size: 12px; color: #7d6b72;">Includes custom handcrafted bake, clamshell packaging & love</div>
           </div>
           <div class="price-huge">
             ${currency}${Math.round(calcResult.sellingPrice).toLocaleString()}

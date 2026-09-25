@@ -55,43 +55,146 @@ const App = {
     this.showToast(`Switched to ${next} mode`, 'success');
   },
 
-  createNewRecipe() {
-    this.currentRecipe = {
-      id: 'rec_' + Date.now(),
-      name: 'Untitled Recipe',
-      category: 'Cakes',
-      description: '',
-      yieldAmount: 1,
-      yieldUnit: 'kg',
-      servingCount: 8,
-      scaleFactor: 1.0,
-      ingredients: [
-        { id: 'ing_1', name: 'All-Purpose Flour (Maida)', qtyUsed: 250, unitUsed: 'g', packSize: 1, packUnit: 'kg', packPrice: 45 },
-        { id: 'ing_2', name: 'Castor Sugar / Fine Sugar', qtyUsed: 200, unitUsed: 'g', packSize: 1, packUnit: 'kg', packPrice: 65 },
-        { id: 'ing_3', name: 'Unsalted Butter', qtyUsed: 150, unitUsed: 'g', packSize: 500, packUnit: 'g', packPrice: 275 }
-      ],
-      wastagePercent: this.settings.defaultWastagePercent || 8,
-      bakingTimeMinutes: 35,
-      ovenWattage: this.settings.ovenWattage || 2000,
-      electricityRate: this.settings.electricityRatePerKwh || 8,
-      prepTimeHours: 0.75,
-      decoratingTimeHours: 0.5,
-      bakerHourlyRate: this.settings.bakerHourlyRate || 200,
-      packaging: [
-        { id: 'pkg_1', name: 'Standard 8-inch Cake Box (Window)', qty: 1, unitCost: 35 },
-        { id: 'pkg_2', name: 'Heavy Duty 10-inch Cake Board (MDF)', qty: 1, unitCost: 25 }
-      ],
-      decorations: [],
-      deliveryCost: 0,
-      pricingType: 'margin',
-      targetMarginPercent: this.settings.defaultMarginPercent || 45,
-      targetMarkupPercent: 80,
-      customSellingPrice: 0
-    };
+  createNewRecipe(styleType = 'bento') {
+    if (styleType === 'bento') {
+      this.currentRecipe = {
+        id: 'rec_' + Date.now(),
+        name: '🎀 4-inch Korean Pastel Bento Cake',
+        category: 'Bento Cakes',
+        description: 'Cute 4-inch Korean lunchbox cake with strawberry milk filling, vintage pastel piping, and bento clamshell packaging.',
+        yieldAmount: 1,
+        yieldUnit: 'bento box',
+        servingCount: 2,
+        scaleFactor: 1.0,
+        ingredients: [
+          { id: 'ing_1', name: 'Cake Flour (Ultra Fine)', qtyUsed: 75, unitUsed: 'g', packSize: 1, packUnit: 'kg', packPrice: 95 },
+          { id: 'ing_2', name: 'Castor Sugar / Fine Sugar', qtyUsed: 70, unitUsed: 'g', packSize: 1, packUnit: 'kg', packPrice: 65 },
+          { id: 'ing_3', name: 'Fresh Large Eggs', qtyUsed: 1, unitUsed: 'pcs', packSize: 30, packUnit: 'pcs', packPrice: 210 },
+          { id: 'ing_4', name: 'Unsalted Butter (for Silky Buttercream)', qtyUsed: 110, unitUsed: 'g', packSize: 500, packUnit: 'g', packPrice: 275 },
+          { id: 'ing_5', name: 'Icing Sugar / Powdered Sugar', qtyUsed: 100, unitUsed: 'g', packSize: 1, packUnit: 'kg', packPrice: 90 },
+          { id: 'ing_6', name: 'Strawberry Compote / Berry Puree', qtyUsed: 50, unitUsed: 'g', packSize: 500, packUnit: 'g', packPrice: 250 },
+          { id: 'ing_7', name: 'Korean Pastel Gel Colors (Baby Pink/Sky/Lilac)', qtyUsed: 1, unitUsed: 'tsp', packSize: 25, packUnit: 'g', packPrice: 120 }
+        ],
+        wastagePercent: 6,
+        bakingTimeMinutes: 20,
+        ovenWattage: this.settings.ovenWattage || 2000,
+        electricityRate: this.settings.electricityRatePerKwh || 8,
+        prepTimeHours: 0.35,
+        decoratingTimeHours: 0.65,
+        bakerHourlyRate: this.settings.bakerHourlyRate || 250,
+        packaging: [
+          { id: 'pkg_1', name: 'Sugarcane Clamshell Bento Box (4-inch)', qty: 1, unitCost: 9 },
+          { id: 'pkg_2', name: 'Aesthetic Bento Wax / Gingham Paper Sheet', qty: 1, unitCost: 2.2 },
+          { id: 'pkg_3', name: 'Mini Eco Wooden Bento Fork / Spoon', qty: 1, unitCost: 1.8 },
+          { id: 'pkg_4', name: 'Pastel Striped Bento Candle & Match', qty: 1, unitCost: 8 }
+        ],
+        decorations: [
+          { id: 'dec_1', name: 'Mini Pastel Edible Sugar Pearls', qty: 1, unitCost: 5 }
+        ],
+        deliveryCost: 0,
+        pricingType: 'margin',
+        targetMarginPercent: 50,
+        targetMarkupPercent: 100,
+        customSellingPrice: 0
+      };
+    } else if (styleType === 'cupcakes') {
+      this.currentRecipe = {
+        id: 'rec_' + Date.now(),
+        name: '🧁 Box of 6 Gourmet Swirl Cupcakes',
+        category: 'Cupcakes',
+        description: 'Set of 6 golden vanilla bean cupcakes crowned with sky-high pastel buttercream swirls, tulip liners & sprinkles.',
+        yieldAmount: 6,
+        yieldUnit: 'cupcakes',
+        servingCount: 6,
+        scaleFactor: 1.0,
+        ingredients: [
+          { id: 'ing_1', name: 'Cake Flour (Ultra Fine)', qtyUsed: 120, unitUsed: 'g', packSize: 1, packUnit: 'kg', packPrice: 95 },
+          { id: 'ing_2', name: 'Castor Sugar / Fine Sugar', qtyUsed: 110, unitUsed: 'g', packSize: 1, packUnit: 'kg', packPrice: 65 },
+          { id: 'ing_3', name: 'Unsalted Butter (for Silky Buttercream)', qtyUsed: 140, unitUsed: 'g', packSize: 500, packUnit: 'g', packPrice: 275 },
+          { id: 'ing_4', name: 'Fresh Large Eggs', qtyUsed: 1, unitUsed: 'pcs', packSize: 30, packUnit: 'pcs', packPrice: 210 },
+          { id: 'ing_5', name: 'Full Cream Milk', qtyUsed: 80, unitUsed: 'ml', packSize: 1, packUnit: 'l', packPrice: 68 },
+          { id: 'ing_6', name: 'Icing Sugar / Powdered Sugar', qtyUsed: 150, unitUsed: 'g', packSize: 1, packUnit: 'kg', packPrice: 90 },
+          { id: 'ing_7', name: 'Pure Madagascar Vanilla Extract', qtyUsed: 1, unitUsed: 'tsp', packSize: 50, packUnit: 'ml', packPrice: 260 }
+        ],
+        wastagePercent: 5,
+        bakingTimeMinutes: 18,
+        ovenWattage: this.settings.ovenWattage || 2000,
+        electricityRate: this.settings.electricityRatePerKwh || 8,
+        prepTimeHours: 0.3,
+        decoratingTimeHours: 0.35,
+        bakerHourlyRate: this.settings.bakerHourlyRate || 250,
+        packaging: [
+          { id: 'pkg_1', name: '6-Cavity Cupcake Box with Window & Insert', qty: 1, unitCost: 26 },
+          { id: 'pkg_2', name: 'Pastel Tulip Cupcake Liners', qty: 6, unitCost: 1.9 },
+          { id: 'pkg_3', name: 'Aesthetic Bakery Washi Tape (Strip)', qty: 1, unitCost: 1 }
+        ],
+        decorations: [
+          { id: 'dec_1', name: 'Mini Pastel Edible Sugar Pearls (50g)', qty: 1, unitCost: 10 }
+        ],
+        deliveryCost: 0,
+        pricingType: 'margin',
+        targetMarginPercent: 50,
+        targetMarkupPercent: 100,
+        customSellingPrice: 0
+      };
+    } else {
+      this.currentRecipe = {
+        id: 'rec_' + Date.now(),
+        name: '🎂 1kg Gourmet Handcrafted Cake',
+        category: 'Cakes',
+        description: 'Classic handcrafted celebration cake with premium sponge, buttercream frosting, and tall gift box.',
+        yieldAmount: 1,
+        yieldUnit: 'kg',
+        servingCount: 10,
+        scaleFactor: 1.0,
+        ingredients: [
+          { id: 'ing_1', name: 'All-Purpose Flour (Maida)', qtyUsed: 220, unitUsed: 'g', packSize: 1, packUnit: 'kg', packPrice: 45 },
+          { id: 'ing_2', name: 'Castor Sugar / Fine Sugar', qtyUsed: 200, unitUsed: 'g', packSize: 1, packUnit: 'kg', packPrice: 65 },
+          { id: 'ing_3', name: 'Unsalted Butter (for Silky Buttercream)', qtyUsed: 250, unitUsed: 'g', packSize: 500, packUnit: 'g', packPrice: 275 },
+          { id: 'ing_4', name: 'Fresh Large Eggs', qtyUsed: 3, unitUsed: 'pcs', packSize: 30, packUnit: 'pcs', packPrice: 210 },
+          { id: 'ing_5', name: 'Full Cream Milk', qtyUsed: 120, unitUsed: 'ml', packSize: 1, packUnit: 'l', packPrice: 68 },
+          { id: 'ing_6', name: 'Icing Sugar / Powdered Sugar', qtyUsed: 250, unitUsed: 'g', packSize: 1, packUnit: 'kg', packPrice: 90 }
+        ],
+        wastagePercent: 8,
+        bakingTimeMinutes: 35,
+        ovenWattage: this.settings.ovenWattage || 2000,
+        electricityRate: this.settings.electricityRatePerKwh || 8,
+        prepTimeHours: 0.75,
+        decoratingTimeHours: 1.0,
+        bakerHourlyRate: this.settings.bakerHourlyRate || 250,
+        packaging: [
+          { id: 'pkg_1', name: 'Standard 8-inch Cake Box (Window)', qty: 1, unitCost: 35 },
+          { id: 'pkg_2', name: '4-inch Mini Bento Cake Board (Round)', qty: 1, unitCost: 7 }
+        ],
+        decorations: [],
+        deliveryCost: 0,
+        pricingType: 'margin',
+        targetMarginPercent: 45,
+        targetMarkupPercent: 80,
+        customSellingPrice: 0
+      };
+    }
     this.currentScale = 1.0;
   },
 
+  applyStylePreset(presetType) {
+    this.createNewRecipe(presetType);
+    this.renderStudio();
+    const label = presetType === 'bento' ? '🍱 Cute Bento Box Cake' : presetType === 'cupcakes' ? '🧁 Gourmet Cupcakes' : '🎂 Celebration Cake';
+    this.showToast(`Switched to ${label} template! ✨`, 'success');
+  },
+
   bindEvents() {
+    // Style Preset Switchers (Bento vs Cupcakes vs Cake)
+    document.querySelectorAll('.style-preset-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        document.querySelectorAll('.style-preset-btn').forEach(b => b.classList.remove('active'));
+        e.currentTarget.classList.add('active');
+        const style = e.currentTarget.dataset.style;
+        this.applyStylePreset(style);
+      });
+    });
+
     // Tab switching
     document.querySelectorAll('.nav-tab-btn').forEach(btn => {
       btn.addEventListener('click', (e) => {

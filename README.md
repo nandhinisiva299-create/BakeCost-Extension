@@ -1,107 +1,86 @@
-# 🍰 BakeCost — Smart Costing & Pricing Assistant for Home Bakers
+# 🎀 BakeCost — Cute Bento Cake & Gourmet Cupcake Costing Assistant
 
-**BakeCost** is a modern, professional browser extension and costing studio engineered specifically for home bakers, custom cake designers, and boutique baking businesses. It solves the widespread problem of accidental underpricing by capturing **true production costs** — including ingredients, unit conversions, oven electricity/gas, scrap wastage, handcrafted labor wages, packaging, and custom cake decorations.
+![BakeCost Bento & Cupcake Suite](assets/images/bento_cupcakes_banner.jpg)
 
----
+**BakeCost** is a cute, aesthetic browser extension and costing studio engineered specifically for home bakers, Korean bento lunchbox cake artists, cupcake creators, and boutique dessert businesses. 
 
-## 🚀 Key Features
-
-### 1. 🌾 Accurate Recipe Cost Calculator & Unit Converter
-- **Unit Conversion Engine**: Seamlessly handles mass (`g`, `kg`, `oz`, `lb`), volume (`ml`, `L`, `cup`, `tbsp`, `tsp`, `fl oz`), and count (`pcs`, `dozen`, `sheet`, `meter`).
-- **Density-Aware Calculations**: Converts cups to exact grams for baking staples (Flour: 125g/cup, Sugar: 200g/cup, Butter: 227g/cup, Cocoa: 100g/cup).
-- **Auto Formula**: `(Quantity Used / Pack Size) × Pack Price` calculated dynamically in real-time.
-- **Batch Scaling**: 1-click scale recipe 0.5x, 1x, 1.5x, 2x, 3x, or custom batch amounts.
-
-### 2. ⚡ The Hidden Overhead & Baker Wage Engine
-- **Oven Electricity / Energy**: Auto-computes power costs based on oven wattage (e.g. 2000W), baking duration (minutes), and your local kWh rate.
-- **True Baker Labor Wage**: Factor in prep, mixing, and decorating time multiplied by your target hourly rate so you never bake for free.
-- **Scrap & Trimming Wastage Buffer**: Configurable 0% to 25% safety margin for batter residue, trimmed cake tops, and test batches.
-- **Packaging & Delivery**: Cost tracking for boxes, MDF cake boards, satin ribbons, candles/knives, bags, and courier delivery.
-- **Special Decorations**: Toppers, edible gold leaf, fresh flower bundles, and macarons.
-
-### 3. 🎯 Smart Pricing Strategy & Margin Analysis
-- **3 Pricing Modes**: Target Gross Margin % (slider), Markup on Cost %, or Custom Fixed Price.
-- **Tiered Price Benchmarks**:
-  - ⚠️ **Floor Price**: Bare raw material survival cost (excluding labor).
-  - ⚖️ **Break-Even Price**: Production cost including baker's wage.
-  - 🏷️ **Wholesale Price**: Standard 25% commercial margin.
-  - 💎 **Recommended Retail Price**: Sustainable premium artisan pricing.
-- **Per-Unit Breakdown**: Live calculation of Cost & Price per Serving and per Kilogram/Piece.
-
-### 4. 📊 Visualizer & Business Health Diagnostics
-- **Interactive SVG Donut Chart**: Visual breakdown of Ingredients vs. Labor vs. Packaging vs. Energy vs. Decorations.
-- **Profit Margin Gauge**: Live meter rating your margin safety (Critical, Moderate, Healthy, Premium).
-- **Smart Diagnostic Alerts**: Warns if labor is budgeted at ₹0, if margin is dangerously low, or if packaging exceeds 20% of budget.
-
-### 5. 💬 Instant WhatsApp Quote & Invoice Generator
-- **1-Click WhatsApp DM Text**: Generates beautiful, emoji-formatted order summaries with customer names, delivery deadlines, custom notes, and total price.
-- **Printable Cost Sheet & Quotation**: Export clean PDF/Print cost sheets and client-facing quotations with your bakery's branding.
-
-### 6. 🏪 Master Pantry & Saved Recipe Book
-- **45+ Pre-loaded Ingredients & Defaults**: Categorized database of flours, chocolates, sugars, dairy, packaging, and toppers.
-- **5 Pre-loaded Gourmet Recipes**:
-  1. 1kg Belgian Dark Chocolate Truffle Cake
-  2. Batch of 12 Red Velvet Cupcakes with Cream Cheese Swirl
-  3. 1kg Fresh Strawberry & Swiss Buttercream Cake
-  4. Fudgy Dark Chocolate Brownies (Box of 9)
-- **Offline & Storage Ready**: Works completely offline using Chrome Storage API and LocalStorage with full JSON backup import/export.
+It makes costing **mini 4-inch bento cakes**, **swirl cupcake batches**, and custom bakes effortless and accurate by capturing raw ingredients, hand-lettering decorating time, oven power, scrap wastage, clamshell boxes, wax papers, mini wooden cutlery, and profit pricing.
 
 ---
 
-## 🛠️ How to Install as a Chrome Extension
+## 🎀 Cute Style Modes & Templates
 
-1. Open **Google Chrome** (or Microsoft Edge / Brave).
-2. Navigate to `chrome://extensions` in the address bar.
-3. Toggle on **Developer mode** in the top right corner.
-4. Click **Load unpacked** in the top left corner.
-5. Select this project directory (`c:\Users\Nandhini\New folder (2)`).
-6. Click the puzzle icon 🧩 in Chrome's toolbar and pin **BakeCost**!
+| Style Mode | Features & Presets Included |
+| :--- | :--- |
+| **🍱 Cute Korean Bento Cake** | 4-inch mini sponge layers, pastel buttercream lettering, sugarcane clamshell bento box, gingham wax paper, mini wooden fork/spoon, striped bento candle, washi tape. |
+| **🧁 Gourmet Cupcake Batch** | 6 or 12 batch scaling, tulip liners, 6-cavity/12-cavity window boxes, sky-high buttercream swirls, edible sugar pearls. |
+| **🎂 Celebration Custom Cake** | 1kg+ celebration cakes, MDF boards, tall gift boxes, satin ribbons, acrylic toppers, and fresh flowers. |
 
 ---
 
-## 📂 Project Structure
+## ✨ Key Features
+
+### 1. 🍱 Bento Lunchbox & Cupcake Packaging Presets
+- Sugarcane Clamshell Boxes (4-inch & 4.5-inch)
+- Aesthetic Gingham & Floral Bento Wax Liners
+- Mini Wooden Cutlery (Bento Forks & Spoons)
+- Pastel Striped & Spiral Bento Candles
+- Pastel Tulip Cupcake Liners & Greaseproof Cups
+- 4-Cavity, 6-Cavity & 12-Cavity Window Boxes
+- Decorative Washi Tape & Branding Stickers
+
+### 2. 🎨 Pastel Lettering & Handcrafted Labor Wage
+- Separate tracking for **Bake/Prep Time** and **Hand-Piped Lettering / Decorating Time**.
+- Configurable hourly wage rate so you are always properly paid for intricate lettering and custom 3D character art.
+- Oven power computation based on mini baking times (14–20 mins) and local electricity rates.
+
+### 3. 🌾 Smart Unit & Density Converter
+- Converts cups to exact grams for cake flour, fine castor sugar, butter, cocoa powder, and liquids.
+- Real-time recipe cost auto-calculation: `(Quantity Used / Pack Size) × Pack Price`.
+- Instant batch scaling: `0.5x`, `1x`, `1.5x`, `2x`, `3x`.
+
+### 4. 💬 WhatsApp DM & Instagram Quotation Generator
+- 1-click copy formatted WhatsApp order quote with custom message piping details, flavor descriptions, delivery deadlines, and payment terms.
+- Printable official client quotation and internal master cost sheets.
+
+### 5. 📊 Interactive Visualizer & Margin Health Meter
+- Aesthetic SVG Donut chart displaying cost proportions.
+- Margin Health Gauge with pastel color-coded status badges.
+- Business alerts for zero-wage budgeting or high packaging costs.
+
+---
+
+## 🛠️ How to Install in Chrome / Edge / Brave
+
+1. Open your browser and navigate to `chrome://extensions`.
+2. Toggle on **Developer mode** in the top right corner.
+3. Click **Load unpacked** in the top left corner.
+4. Select this project directory (`c:\Users\Nandhini\New folder (2)`).
+5. Pin **BakeCost 🎀** to your browser toolbar!
+
+---
+
+## 📂 Project Architecture
 
 ```text
-├── manifest.json              # Chrome Manifest V3 configuration
-├── popup.html                 # Extension popup interface
-├── dashboard.html             # Full-screen Studio & Recipe Book
-├── index.html                 # Standalone web app preview & entry
+├── manifest.json              # Chrome Manifest V3 extension configuration
+├── popup.html                 # Compact cute popup interface
+├── dashboard.html             # Full-screen Bento & Cupcake Studio
+├── index.html                 # Web app demo & preview
 ├── css/
-│   ├── style.css              # Design system tokens, warm bakery themes, dark/light mode
-│   ├── components.css         # UI components, pricing cards, forms, tables, modals
-│   └── animations.css         # Micro-interactions, keyframes, transitions
+│   ├── style.css              # Cute pastel aesthetic design system & themes
+│   ├── components.css         # Bento cards, style switcher, tables, badges
+│   └── animations.css         # Micro-interactions & bouncy transitions
 ├── js/
-│   ├── app.js                 # App controller, event bindings, tab routing, calculations
-│   ├── calculator.js          # Core costing engine, overheads, margins, diagnostic alerts
-│   ├── pantry.js              # 45+ preset ingredients, packaging items, and decorations
-│   ├── storage.js             # Storage adapter (Chrome Storage + LocalStorage fallback)
-│   ├── visualizer.js          # Interactive SVG donut chart and margin gauge meter
-│   ├── quote-generator.js     # WhatsApp DM formatter and printable PDF generator
-│   ├── units.js               # Unit conversion and baking density database
+│   ├── app.js                 # App controller & style preset switcher
+│   ├── calculator.js          # Production costing engine & margin health
+│   ├── pantry.js              # Bento boxes, tulip liners, and 45+ ingredients
+│   ├── storage.js             # Storage layer with 5 cute pre-loaded recipes
+│   ├── visualizer.js          # SVG Donut chart & margin gauge
+│   ├── quote-generator.js     # WhatsApp DM quote & printable PDF sheet
+│   ├── units.js               # Density-aware unit converter
 │   └── background.js          # Manifest V3 service worker
 └── assets/
-    └── icons/                 # Crisp PNG icons (16px, 32px, 48px, 128px)
-```
-
----
-
-## 💡 Example Costing Calculation
-
-```text
-Butter:
-Pack size = 500g
-Pack price = ₹275
-Used = 150g
-Cost used = (150 / 500) × 275 = ₹82.50
-
-Oven Electricity:
-Power = 2000W (2 kW)
-Baking Time = 35 minutes (0.583 hours)
-Rate = ₹8.00 / kWh
-Energy Cost = 2 × 0.583 × 8 = ₹9.33
-
-Baker Labor:
-Prep & Decorating = 1.25 hours
-Wage Rate = ₹200 / hour
-Labor Cost = 1.25 × 200 = ₹250.00
+    ├── icons/                 # Cute cupcake & bento PNG icons (16, 32, 48, 128px)
+    └── images/                # Bento & cupcake workspace banner
 ```

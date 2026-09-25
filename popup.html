@@ -3,12 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BakeCost — Bakery Costing Assistant</title>
+  <title>BakeCost — Cute Bento & Cupcake Costing Assistant</title>
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/components.css">
   <link rel="stylesheet" href="css/animations.css">
   <style>
-    /* Popup specific adjustments */
     body {
       width: 620px;
       min-height: 580px;
@@ -22,19 +21,19 @@
     <!-- Header -->
     <header class="app-header">
       <div class="brand">
-        <div class="brand-icon">🍰</div>
+        <div class="brand-icon">🎀</div>
         <div>
           <div class="brand-title">
             BakeCost
-            <span class="brand-badge">PRO</span>
+            <span class="brand-badge">BENTO & CUPCAKES</span>
           </div>
         </div>
       </div>
       
       <div class="header-actions">
         <button type="button" class="btn btn-ghost btn-sm btn-icon" id="theme-toggle-btn" title="Toggle Theme">🌙</button>
-        <button type="button" class="btn btn-secondary btn-sm" id="btn-open-full-tab" title="Open Full Dashboard Studio">⛶ Full Studio</button>
-        <button type="button" class="btn btn-primary btn-sm" id="btn-save-recipe">💾 Save</button>
+        <button type="button" class="btn btn-secondary btn-sm" id="btn-open-full-tab" title="Open Full Dashboard Studio">⛶ Studio</button>
+        <button type="button" class="btn btn-primary btn-sm btn-save-recipe">💾 Save</button>
       </div>
     </header>
 
@@ -42,9 +41,9 @@
     <div style="padding: 8px 12px 0 12px;">
       <nav class="nav-tabs">
         <button class="nav-tab-btn active" data-tab="studio">🍰 Cost Calculator</button>
-        <button class="nav-tab-btn" data-tab="recipes">📖 Recipes</button>
+        <button class="nav-tab-btn" data-tab="recipes">📖 Recipe Book</button>
         <button class="nav-tab-btn" data-tab="quotes">💬 WhatsApp Quote</button>
-        <button class="nav-tab-btn" data-tab="converter">⚖️ Unit Converter</button>
+        <button class="nav-tab-btn" data-tab="converter">⚖️ Converter</button>
         <button class="nav-tab-btn" data-tab="pantry">🏪 Pantry</button>
         <button class="nav-tab-btn" data-tab="settings">⚙️ Settings</button>
       </nav>
@@ -55,31 +54,38 @@
       
       <!-- TAB 1: STUDIO / COST CALCULATOR -->
       <section id="tab-studio" class="tab-panel active">
+        
+        <!-- Style Switcher Presets -->
+        <div class="style-preset-selector">
+          <button type="button" class="style-preset-btn active" data-style="bento">🍱 Cute Bento Box Cake</button>
+          <button type="button" class="style-preset-btn" data-style="cupcakes">🧁 Gourmet Cupcakes</button>
+          <button type="button" class="style-preset-btn" data-style="celebration">🎂 Custom Celebration Cake</button>
+        </div>
+
         <!-- Top Recipe Details -->
         <div class="card" style="margin-bottom: 12px; padding: 12px;">
           <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 8px;">
-            <input type="text" id="recipe-name-input" class="form-control" style="font-weight: 700; font-size: 1.05rem; flex: 2;" placeholder="Recipe Name (e.g. 1kg Chocolate Truffle)">
-            <select id="recipe-category-select" class="form-control" style="flex: 1;">
-              <option value="Cakes">🎂 Cakes</option>
+            <input type="text" id="recipe-name-input" class="form-control" style="font-weight: 700; font-size: 1.05rem; flex: 2;" placeholder="Recipe Name (e.g. 4-inch Bento Cake)">
+            <select id="recipe-category-select" class="form-control" style="flex: 1.2;">
+              <option value="Bento Cakes">🍱 Bento Cakes</option>
               <option value="Cupcakes">🧁 Cupcakes</option>
+              <option value="Cakes">🎂 Handcrafted Cakes</option>
               <option value="Brownies">🍫 Brownies</option>
               <option value="Cookies">🍪 Cookies</option>
-              <option value="Breads">🍞 Breads</option>
-              <option value="Pastries">🥐 Pastries</option>
-              <option value="Custom">✨ Custom</option>
+              <option value="Custom">✨ Custom Bakes</option>
             </select>
           </div>
 
           <div style="display: flex; gap: 8px; align-items: center; font-size: 0.82rem;">
             <div style="display: flex; align-items: center; gap: 4px;">
-              <span style="color: var(--text-muted);">Batch Yield:</span>
+              <span style="color: var(--text-muted); font-weight: 600;">Yield:</span>
               <input type="number" step="any" min="0.1" id="recipe-yield-amount" class="form-control" value="1" style="width: 55px; padding: 4px 6px;">
-              <input type="text" id="recipe-yield-unit" class="form-control" value="kg" style="width: 70px; padding: 4px 6px;">
+              <input type="text" id="recipe-yield-unit" class="form-control" value="bento box" style="width: 85px; padding: 4px 6px;">
             </div>
 
             <div style="display: flex; align-items: center; gap: 4px;">
-              <span style="color: var(--text-muted);">Servings:</span>
-              <input type="number" min="1" id="recipe-servings-count" class="form-control" value="10" style="width: 55px; padding: 4px 6px;">
+              <span style="color: var(--text-muted); font-weight: 600;">Servings:</span>
+              <input type="number" min="1" id="recipe-servings-count" class="form-control" value="2" style="width: 55px; padding: 4px 6px;">
             </div>
 
             <!-- Batch Scaling -->
@@ -99,7 +105,7 @@
         <div class="pricing-hero-card" style="margin-bottom: 12px; padding: 14px;">
           <div style="display: flex; justify-content: space-between; align-items: center;">
             <div>
-              <span style="font-size: 0.75rem; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 0.5px;">Recommended Selling Price</span>
+              <span style="font-size: 0.75rem; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: 0.5px;">Recommended Selling Price</span>
               <div class="selling-price-display" style="margin: 2px 0; text-align: left;">
                 <span class="price-currency">₹</span>
                 <span class="price-number" id="hero-selling-price">0</span>
@@ -108,9 +114,9 @@
             </div>
 
             <div style="text-align: right;">
-              <div style="font-size: 0.75rem; color: var(--text-muted);">Total True Cost</div>
+              <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600;">Total True Cost</div>
               <div id="stat-total-cost" style="font-size: 1.25rem; font-weight: 800;">₹0.00</div>
-              <div style="font-size: 0.75rem; color: var(--accent-emerald); font-weight: 700; margin-top: 2px;">
+              <div style="font-size: 0.75rem; color: var(--bento-mint); font-weight: 800; margin-top: 2px;">
                 Net Profit: <span id="stat-net-profit">₹0.00</span>
               </div>
             </div>
@@ -125,24 +131,24 @@
             </div>
 
             <div id="strategy-margin-group">
-              <div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 600;">
+              <div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700;">
                 <span>Target Profit Margin:</span>
-                <span id="margin-slider-value" style="color: var(--primary);">45%</span>
+                <span id="margin-slider-value" style="color: var(--primary);">50%</span>
               </div>
-              <input type="range" id="margin-slider" class="range-slider" min="5" max="80" value="45" step="1">
+              <input type="range" id="margin-slider" class="range-slider" min="5" max="80" value="50" step="1">
             </div>
 
             <div id="strategy-markup-group" style="display: none;">
-              <div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 600;">
+              <div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700;">
                 <span>Target Markup on Cost:</span>
-                <span id="markup-slider-value" style="color: var(--primary);">80%</span>
+                <span id="markup-slider-value" style="color: var(--primary);">100%</span>
               </div>
-              <input type="range" id="markup-slider" class="range-slider" min="10" max="250" value="80" step="5">
+              <input type="range" id="markup-slider" class="range-slider" min="10" max="250" value="100" step="5">
             </div>
 
             <div id="strategy-custom-group" style="display: none;">
               <div style="display: flex; align-items: center; gap: 8px;">
-                <span style="font-size: 0.8rem; font-weight: 600;">Enter Fixed Selling Price:</span>
+                <span style="font-size: 0.8rem; font-weight: 700;">Enter Fixed Price:</span>
                 <input type="number" id="custom-price-input" class="form-control" style="width: 120px;" placeholder="₹0">
               </div>
             </div>
@@ -153,11 +159,11 @@
         <div class="card" style="margin-bottom: 12px; padding: 12px;">
           <div class="card-header" style="margin-bottom: 8px; padding-bottom: 6px;">
             <div class="card-title" style="font-size: 0.95rem;">
-              <span>🌾 Recipe Ingredients</span>
+              <span>🌾 Sponge & Frosting Ingredients</span>
               <span class="badge badge-primary" id="stat-ingredients-cost">₹0.00</span>
             </div>
             <div style="display: flex; gap: 6px;">
-              <button type="button" class="btn btn-secondary btn-sm" id="btn-pantry-picker">⚡ Quick Pantry Pick</button>
+              <button type="button" class="btn btn-secondary btn-sm" id="btn-pantry-picker">⚡ Quick Pick</button>
               <button type="button" class="btn btn-primary btn-sm" id="btn-add-ingredient">+ Add Row</button>
             </div>
           </div>
@@ -175,19 +181,17 @@
                   <th></th>
                 </tr>
               </thead>
-              <tbody id="ingredients-table-body">
-                <!-- Injected by app.js -->
-              </tbody>
+              <tbody id="ingredients-table-body"></tbody>
             </table>
           </div>
         </div>
 
-        <!-- Overheads & Hidden Expenses Accordion -->
+        <!-- Overheads, Baking Energy, Labor & Bento Packaging Accordion -->
         <div class="card" style="margin-bottom: 12px; padding: 12px;">
           <div class="card-header" style="margin-bottom: 8px; padding-bottom: 6px;">
             <div class="card-title" style="font-size: 0.95rem;">
-              <span>⚡ Overheads, Labor & Packaging</span>
-              <span class="badge badge-gold" id="stat-overhead-cost">₹0.00</span>
+              <span>⚡ Bento Overheads, Piped Lettering & Boxes</span>
+              <span class="badge badge-peach" id="stat-overhead-cost">₹0.00</span>
             </div>
           </div>
 
@@ -195,14 +199,14 @@
           <div class="overhead-section">
             <div class="overhead-header">
               <span>🔥 Oven Electricity & Scrap Wastage</span>
-              <span class="badge badge-blue" id="energy-cost-badge">₹0.0</span>
+              <span class="badge badge-mint" id="energy-cost-badge">₹0.0</span>
               <span class="toggle-icon">▼</span>
             </div>
             <div class="overhead-content">
               <div class="overhead-grid-2">
                 <div class="form-group">
                   <label class="form-label">Baking Time (Minutes)</label>
-                  <input type="number" id="overhead-bake-time" class="form-control" value="35">
+                  <input type="number" id="overhead-bake-time" class="form-control" value="20">
                 </div>
                 <div class="form-group">
                   <label class="form-label">Oven Power (Watts)</label>
@@ -210,45 +214,45 @@
                 </div>
               </div>
               <div class="form-group" style="margin-bottom: 0;">
-                <div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 600;">
-                  <span>Ingredient Wastage / Trimming Buffer:</span>
-                  <span id="overhead-wastage-val" style="color: var(--primary);">8%</span>
+                <div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700;">
+                  <span>Trimming / Sponge Scrap Wastage:</span>
+                  <span id="overhead-wastage-val" style="color: var(--primary);">6%</span>
                 </div>
-                <input type="range" id="overhead-wastage" class="range-slider" min="0" max="25" value="8" step="1">
+                <input type="range" id="overhead-wastage" class="range-slider" min="0" max="25" value="6" step="1">
               </div>
             </div>
           </div>
 
-          <!-- Overhead 2: Baker's Labor & Wage -->
+          <!-- Overhead 2: Baker's Labor & Piping Wage -->
           <div class="overhead-section">
             <div class="overhead-header">
-              <span>⏱️ Baker Labor & Hourly Wage</span>
-              <span class="badge badge-purple" id="labor-cost-badge">₹0</span>
+              <span>⏱️ Baker Labor & Lettering Time</span>
+              <span class="badge badge-lavender" id="labor-cost-badge">₹0</span>
               <span class="toggle-icon">▼</span>
             </div>
             <div class="overhead-content">
               <div class="overhead-grid-3">
                 <div class="form-group">
-                  <label class="form-label">Prep Time (Hours)</label>
-                  <input type="number" step="0.25" id="overhead-prep-time" class="form-control" value="0.75">
+                  <label class="form-label">Bake/Prep Time (Hrs)</label>
+                  <input type="number" step="0.25" id="overhead-prep-time" class="form-control" value="0.35">
                 </div>
                 <div class="form-group">
-                  <label class="form-label">Decorating (Hours)</label>
-                  <input type="number" step="0.25" id="overhead-dec-time" class="form-control" value="0.5">
+                  <label class="form-label">Piping/Design (Hrs)</label>
+                  <input type="number" step="0.25" id="overhead-dec-time" class="form-control" value="0.65">
                 </div>
                 <div class="form-group">
-                  <label class="form-label">Hourly Wage (₹/hr)</label>
-                  <input type="number" id="overhead-labor-rate" class="form-control" value="200">
+                  <label class="form-label">Wage Rate (₹/hr)</label>
+                  <input type="number" id="overhead-labor-rate" class="form-control" value="250">
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- Overhead 3: Packaging -->
+          <!-- Overhead 3: Bento & Cupcake Packaging -->
           <div class="overhead-section">
             <div class="overhead-header">
-              <span>📦 Cake Box, Board & Packaging</span>
-              <span class="badge badge-gold" id="pkg-cost-badge">₹0</span>
+              <span>🍱 Clamshell Bento Box, Liners & Cutlery</span>
+              <span class="badge badge-peach" id="pkg-cost-badge">₹0</span>
               <span class="toggle-icon">▼</span>
             </div>
             <div class="overhead-content">
@@ -257,11 +261,11 @@
             </div>
           </div>
 
-          <!-- Overhead 4: Custom Decorations -->
+          <!-- Overhead 4: Decorations & Pearls -->
           <div class="overhead-section">
             <div class="overhead-header">
-              <span>✨ Toppers, Flowers & Decorations</span>
-              <span class="badge badge-emerald" id="dec-cost-badge">₹0</span>
+              <span>✨ Sugar Pearls, Charms & Bento Candles</span>
+              <span class="badge badge-mint" id="dec-cost-badge">₹0</span>
               <span class="toggle-icon">▼</span>
             </div>
             <div class="overhead-content">
@@ -270,15 +274,15 @@
             </div>
           </div>
 
-          <!-- Overhead 5: Logistics & Delivery -->
+          <!-- Overhead 5: Delivery -->
           <div class="overhead-section">
             <div class="overhead-header">
-              <span>🛵 Delivery & Logistics</span>
+              <span>🛵 Delivery / Courier</span>
               <span class="toggle-icon">▼</span>
             </div>
             <div class="overhead-content">
               <div class="form-group" style="margin-bottom: 0;">
-                <label class="form-label">Delivery Charge (₹)</label>
+                <label class="form-label">Delivery Fee (₹)</label>
                 <input type="number" id="overhead-delivery-cost" class="form-control" value="0" placeholder="0.00">
               </div>
             </div>
@@ -318,7 +322,7 @@
         <div style="display: flex; gap: 8px; justify-content: flex-end;">
           <button type="button" class="btn btn-secondary" id="btn-new-recipe">✨ New Canvas</button>
           <button type="button" class="btn btn-secondary" id="btn-duplicate-recipe">📋 Duplicate</button>
-          <button type="button" class="btn btn-primary" id="btn-save-recipe">💾 Save Recipe</button>
+          <button type="button" class="btn btn-primary btn-save-recipe">💾 Save Recipe</button>
         </div>
       </section>
 
@@ -326,7 +330,7 @@
       <section id="tab-recipes" class="tab-panel">
         <div class="card" style="margin-bottom: 12px; padding: 12px;">
           <div style="display: flex; gap: 8px; align-items: center;">
-            <input type="text" id="search-recipes-input" class="form-control" placeholder="🔍 Search saved recipes...">
+            <input type="text" id="search-recipes-input" class="form-control" placeholder="🔍 Search bento cakes & cupcakes...">
             <button type="button" class="btn btn-primary btn-sm" id="btn-new-recipe-tab">+ New</button>
           </div>
         </div>
@@ -341,7 +345,7 @@
           <div class="overhead-grid-2" style="margin-bottom: 10px;">
             <div class="form-group">
               <label class="form-label">Client Name</label>
-              <input type="text" id="quote-client-name" class="form-control" placeholder="e.g. Priya Sharma">
+              <input type="text" id="quote-client-name" class="form-control" placeholder="e.g. Jenny Kim">
             </div>
             <div class="form-group">
               <label class="form-label">Delivery Date & Time</label>
@@ -350,8 +354,8 @@
           </div>
 
           <div class="form-group">
-            <label class="form-label">Custom Flavor & Message Notes</label>
-            <textarea id="quote-notes" class="form-control" rows="2" placeholder="e.g. Eggless, 'Happy 10th Birthday Ananya' on plaque, less sweet."></textarea>
+            <label class="form-label">💌 Custom Piped Lettering / Message on Bento Cake</label>
+            <textarea id="quote-notes" class="form-control" rows="2" placeholder="e.g. 'Happy 21st Minji' in pastel lavender with vintage shell border."></textarea>
           </div>
 
           <div style="margin-top: 14px;">
@@ -360,7 +364,7 @@
           </div>
 
           <div style="display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap;">
-            <button type="button" class="btn btn-success" id="btn-copy-whatsapp">📋 Copy WhatsApp Text</button>
+            <button type="button" class="btn btn-success" id="btn-copy-whatsapp">📋 Copy WhatsApp DM</button>
             <button type="button" class="btn btn-secondary" id="btn-print-client-quote">🖨️ Official Client Quote</button>
             <button type="button" class="btn btn-secondary" id="btn-print-cost-sheet">📄 Master Cost Sheet</button>
           </div>
@@ -372,20 +376,19 @@
         <div class="card" style="padding: 16px;">
           <div class="card-title" style="font-size: 1rem; margin-bottom: 12px;">⚖️ Baker's Smart Unit Converter</div>
           <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 14px;">
-            Convert between grams, cups, spoons, and milliliters with density adjustment for flours, sugars, and butter.
+            Accurately convert cups, spoons, and milliliters into exact grams adjusted for flour, sugar, butter & cocoa densities.
           </p>
 
           <div class="form-group">
-            <label class="form-label">Select Ingredient (for Density)</label>
+            <label class="form-label">Select Baking Ingredient for Density</label>
             <select id="conv-ingredient" class="form-control">
+              <option value="cake flour">🌾 Cake Flour / Ultra Fine (1 cup = 115g)</option>
               <option value="all purpose flour">🌾 All-Purpose Flour / Maida (1 cup = 125g)</option>
-              <option value="granulated sugar">🍬 Granulated / Castor Sugar (1 cup = 200g)</option>
+              <option value="granulated sugar">🍬 Castor Sugar (1 cup = 200g)</option>
               <option value="powdered sugar">🍬 Icing / Powdered Sugar (1 cup = 120g)</option>
-              <option value="brown sugar">🍬 Brown Sugar (1 cup = 220g)</option>
               <option value="butter">🧈 Butter (1 cup = 227g)</option>
               <option value="cocoa powder">🍫 Cocoa Powder (1 cup = 100g)</option>
               <option value="milk">🥛 Milk / Liquids (1 cup = 240ml)</option>
-              <option value="oil">🌻 Vegetable Oil (1 cup = 218g)</option>
               <option value="baking powder">🧪 Baking Powder (1 tsp = ~4g)</option>
             </select>
           </div>
@@ -418,7 +421,6 @@
                 <option value="tbsp">Tablespoon (tbsp)</option>
                 <option value="tsp">Teaspoon (tsp)</option>
                 <option value="ml">Milliliters (ml)</option>
-                <option value="oz">Ounces (oz)</option>
               </select>
             </div>
           </div>
@@ -426,7 +428,7 @@
           <div style="background: var(--primary-subtle); border: 1px solid var(--primary); border-radius: var(--radius-md); padding: 14px; text-align: center; margin-top: 10px;">
             <div style="font-size: 0.8rem; color: var(--primary); font-weight: 700; text-transform: uppercase;">Converted Value</div>
             <div id="conv-result-val" style="font-size: 1.8rem; font-weight: 800; color: var(--primary); font-family: var(--font-heading);">
-              125.00 g
+              115.00 g
             </div>
           </div>
         </div>
@@ -436,10 +438,10 @@
       <section id="tab-pantry" class="tab-panel">
         <div class="card" style="padding: 12px;">
           <div class="card-header" style="margin-bottom: 8px;">
-            <div class="card-title" style="font-size: 0.95rem;">🏪 Master Pantry & Pack Prices</div>
+            <div class="card-title" style="font-size: 0.95rem;">🏪 Bento & Cupcake Pantry Master</div>
             <button type="button" class="btn btn-primary btn-sm" id="btn-add-pantry-custom">+ Custom Item</button>
           </div>
-          <input type="text" id="search-pantry-input" class="form-control" style="margin-bottom: 10px;" placeholder="🔍 Search pantry items...">
+          <input type="text" id="search-pantry-input" class="form-control" style="margin-bottom: 10px;" placeholder="🔍 Search bento supplies, boxes, liners...">
           <div class="ingredient-table-wrapper" style="max-height: 380px;">
             <table class="ingredient-table">
               <thead>
@@ -466,7 +468,7 @@
           <form id="bakery-settings-form">
             <div class="overhead-grid-2">
               <div class="form-group">
-                <label class="form-label">Bakery / Brand Name</label>
+                <label class="form-label">Bakery Brand Name</label>
                 <input type="text" id="set-bakery-name" class="form-control" required>
               </div>
               <div class="form-group">
@@ -508,22 +510,22 @@
               </div>
               <div class="form-group">
                 <label class="form-label">Hourly Labor Wage Rate</label>
-                <input type="number" id="set-hourly-rate" class="form-control" value="200">
+                <input type="number" id="set-hourly-rate" class="form-control" value="250">
               </div>
             </div>
 
             <div class="overhead-grid-2">
               <div class="form-group">
                 <label class="form-label">Default Wastage Buffer (%)</label>
-                <input type="number" id="set-default-wastage" class="form-control" value="8">
+                <input type="number" id="set-default-wastage" class="form-control" value="6">
               </div>
               <div class="form-group">
                 <label class="form-label">Default Target Margin (%)</label>
-                <input type="number" id="set-default-margin" class="form-control" value="45">
+                <input type="number" id="set-default-margin" class="form-control" value="50">
               </div>
             </div>
 
-            <button type="submit" class="btn btn-primary" style="margin-top: 10px; width: 100%;">Save Settings ✨</button>
+            <button type="submit" class="btn btn-primary" style="margin-top: 10px; width: 100%;">Save Bakery Profile ✨</button>
           </form>
 
           <div style="margin-top: 20px; border-top: 1px solid var(--border-color); padding-top: 14px;">
@@ -534,7 +536,7 @@
                 📥 Import Backup
                 <input type="file" id="import-file-input" accept=".json" style="display: none;">
               </label>
-              <button type="button" class="btn btn-ghost btn-sm" id="btn-reset-defaults" style="color: #ef4444;">🔄 Reset to Demo Data</button>
+              <button type="button" class="btn btn-ghost btn-sm" id="btn-reset-defaults" style="color: #ef4444;">🔄 Reset to Sample Bento Cakes</button>
             </div>
           </div>
         </div>
@@ -550,7 +552,7 @@
         <h3 style="font-size: 1.1rem;">⚡ Quick Pantry Selector</h3>
         <button type="button" class="btn btn-ghost btn-sm btn-icon" id="btn-close-pantry-modal">✕</button>
       </div>
-      <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 12px;">Click to immediately add common bakery ingredients with saved pack rates into your recipe.</p>
+      <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 12px;">Click to immediately add bento boxes, tulip liners, and ingredients with saved pack rates into your recipe.</p>
       <div id="modal-pantry-list" style="max-height: 360px; overflow-y: auto;"></div>
     </div>
   </div>
@@ -564,7 +566,6 @@
   <script src="js/quote-generator.js"></script>
   <script src="js/app.js"></script>
   <script>
-    // Open full tab listener
     document.getElementById('btn-open-full-tab')?.addEventListener('click', () => {
       if (typeof chrome !== 'undefined' && chrome.tabs && chrome.tabs.create) {
         chrome.tabs.create({ url: 'dashboard.html' });
@@ -573,9 +574,8 @@
       }
     });
 
-    // New recipe button on recipe tab
     document.getElementById('btn-new-recipe-tab')?.addEventListener('click', () => {
-      App.createNewRecipe();
+      App.createNewRecipe('bento');
       App.switchTab('studio');
       App.renderStudio();
     });
