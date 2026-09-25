@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BakeCost — Bakery Costing Assistant</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <style>
+    /* Popup specific adjustments */
+    body {
+      width: 620px;
+      min-height: 580px;
+      max-height: 600px;
+      overflow-y: auto;
+    }
+  </style>
+</head>
+<body class="is-popup">
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="brand">
+        <div class="brand-icon">🍰</div>
+        <div>
+          <div class="brand-title">
+            BakeCost
+            <span class="brand-badge">PRO</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="header-actions">
+        <button type="button" class="btn btn-ghost btn-sm btn-icon" id="theme-toggle-btn" title="Toggle Theme">🌙</button>
+        <button type="button" class="btn btn-secondary btn-sm" id="btn-open-full-tab" title="Open Full Dashboard Studio">⛶ Full Studio</button>
+        <button type="button" class="btn btn-primary btn-sm" id="btn-save-recipe">💾 Save</button>
+      </div>
+    </header>
+
+    <!-- Nav Bar -->
+    <div style="padding: 8px 12px 0 12px;">
+      <nav class="nav-tabs">
+        <button class="nav-tab-btn active" data-tab="studio">🍰 Cost Calculator</button>
+        <button class="nav-tab-btn" data-tab="recipes">📖 Recipes</button>
+        <button class="nav-tab-btn" data-tab="quotes">💬 WhatsApp Quote</button>
+        <button class="nav-tab-btn" data-tab="converter">⚖️ Unit Converter</button>
+        <button class="nav-tab-btn" data-tab="pantry">🏪 Pantry</button>
+        <button class="nav-tab-btn" data-tab="settings">⚙️ Settings</button>
+      </nav>
+    </div>
+
+    <!-- Main Body Panels -->
+    <main class="app-main">
+      
+      <!-- TAB 1: STUDIO / COST CALCULATOR -->
+      <section id="tab-studio" class="tab-panel active">
+        <!-- Top Recipe Details -->
+        <div class="card" style="margin-bottom: 12px; padding: 12px;">
+          <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 8px;">
+            <input type="text" id="recipe-name-input" class="form-control" style="font-weight: 700; font-size: 1.05rem; flex: 2;" placeholder="Recipe Name (e.g. 1kg Chocolate Truffle)">
+            <select id="recipe-category-select" class="form-control" style="flex: 1;">
+              <option value="Cakes">🎂 Cakes</option>
+              <option value="Cupcakes">🧁 Cupcakes</option>
+              <option value="Brownies">🍫 Brownies</option>
+              <option value="Cookies">🍪 Cookies</option>
+              <option value="Breads">🍞 Breads</option>
+              <option value="Pastries">🥐 Pastries</option>
+              <option value="Custom">✨ Custom</option>
+            </select>
+          </div>
+
+          <div style="display: flex; gap: 8px; align-items: center; font-size: 0.82rem;">
+            <div style="display: flex; align-items: center; gap: 4px;">
+              <span style="color: var(--text-muted);">Batch Yield:</span>
+              <input type="number" step="any" min="0.1" id="recipe-yield-amount" class="form-control" value="1" style="width: 55px; padding: 4px 6px;">
+              <input type="text" id="recipe-yield-unit" class="form-control" value="kg" style="width: 70px; padding: 4px 6px;">
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 4px;">
+              <span style="color: var(--text-muted);">Servings:</span>
+              <input type="number" min="1" id="recipe-servings-count" class="form-control" value="10" style="width: 55px; padding: 4px 6px;">
+            </div>
+
+            <!-- Batch Scaling -->
+            <div style="display: flex; align-items: center; gap: 4px; margin-left: auto;">
+              <span style="color: var(--text-muted); font-size: 0.75rem;">Scale:</span>
+              <div class="scale-bar" style="margin-bottom: 0; padding: 2px 4px;">
+                <button type="button" class="scale-btn" data-scale="0.5">0.5x</button>
+                <button type="button" class="scale-btn active" data-scale="1">1x</button>
+                <button type="button" class="scale-btn" data-scale="1.5">1.5x</button>
+                <button type="button" class="scale-btn" data-scale="2">2x</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Live Price Banner -->
+        <div class="pricing-hero-card" style="margin-bottom: 12px; padding: 14px;">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+              <span style="font-size: 0.75rem; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 0.5px;">Recommended Selling Price</span>
+              <div class="selling-price-display" style="margin: 2px 0; text-align: left;">
+                <span class="price-currency">₹</span>
+                <span class="price-number" id="hero-selling-price">0</span>
+              </div>
+              <div id="hero-price-unit-sub" class="price-unit-sub"></div>
+            </div>
+
+            <div style="text-align: right;">
+              <div style="font-size: 0.75rem; color: var(--text-muted);">Total True Cost</div>
+              <div id="stat-total-cost" style="font-size: 1.25rem; font-weight: 800;">₹0.00</div>
+              <div style="font-size: 0.75rem; color: var(--accent-emerald); font-weight: 700; margin-top: 2px;">
+                Net Profit: <span id="stat-net-profit">₹0.00</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Profit Strategy Controls -->
+          <div style="margin-top: 10px; border-top: 1px dashed var(--border-color); padding-top: 10px;">
+            <div class="strategy-tabs" style="margin-bottom: 8px;">
+              <button type="button" class="strategy-tab active" data-strategy="margin">Margin %</button>
+              <button type="button" class="strategy-tab" data-strategy="markup">Markup %</button>
+              <button type="button" class="strategy-tab" data-strategy="custom">Custom Price</button>
+            </div>
+
+            <div id="strategy-margin-group">
+              <div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 600;">
+                <span>Target Profit Margin:</span>
+                <span id="margin-slider-value" style="color: var(--primary);">45%</span>
+              </div>
+              <input type="range" id="margin-slider" class="range-slider" min="5" max="80" value="45" step="1">
+            </div>
+
+            <div id="strategy-markup-group" style="display: none;">
+              <div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 600;">
+                <span>Target Markup on Cost:</span>
+                <span id="markup-slider-value" style="color: var(--primary);">80%</span>
+              </div>
+              <input type="range" id="markup-slider" class="range-slider" min="10" max="250" value="80" step="5">
+            </div>
+
+            <div id="strategy-custom-group" style="display: none;">
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span style="font-size: 0.8rem; font-weight: 600;">Enter Fixed Selling Price:</span>
+                <input type="number" id="custom-price-input" class="form-control" style="width: 120px;" placeholder="₹0">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Ingredients Table Card -->
+        <div class="card" style="margin-bottom: 12px; padding: 12px;">
+          <div class="card-header" style="margin-bottom: 8px; padding-bottom: 6px;">
+            <div class="card-title" style="font-size: 0.95rem;">
+              <span>🌾 Recipe Ingredients</span>
+              <span class="badge badge-primary" id="stat-ingredients-cost">₹0.00</span>
+            </div>
+            <div style="display: flex; gap: 6px;">
+              <button type="button" class="btn btn-secondary btn-sm" id="btn-pantry-picker">⚡ Quick Pantry Pick</button>
+              <button type="button" class="btn btn-primary btn-sm" id="btn-add-ingredient">+ Add Row</button>
+            </div>
+          </div>
+
+          <div class="ingredient-table-wrapper">
+            <table class="ingredient-table">
+              <thead>
+                <tr>
+                  <th>Ingredient</th>
+                  <th>Used</th>
+                  <th>Unit</th>
+                  <th>Pack Size</th>
+                  <th>Pack Price</th>
+                  <th class="text-right">Cost</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="ingredients-table-body">
+                <!-- Injected by app.js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Overheads & Hidden Expenses Accordion -->
+        <div class="card" style="margin-bottom: 12px; padding: 12px;">
+          <div class="card-header" style="margin-bottom: 8px; padding-bottom: 6px;">
+            <div class="card-title" style="font-size: 0.95rem;">
+              <span>⚡ Overheads, Labor & Packaging</span>
+              <span class="badge badge-gold" id="stat-overhead-cost">₹0.00</span>
+            </div>
+          </div>
+
+          <!-- Overhead 1: Baking Energy & Wastage -->
+          <div class="overhead-section">
+            <div class="overhead-header">
+              <span>🔥 Oven Electricity & Scrap Wastage</span>
+              <span class="badge badge-blue" id="energy-cost-badge">₹0.0</span>
+              <span class="toggle-icon">▼</span>
+            </div>
+            <div class="overhead-content">
+              <div class="overhead-grid-2">
+                <div class="form-group">
+                  <label class="form-label">Baking Time (Minutes)</label>
+                  <input type="number" id="overhead-bake-time" class="form-control" value="35">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Oven Power (Watts)</label>
+                  <input type="number" id="overhead-oven-watt" class="form-control" value="2000">
+                </div>
+              </div>
+              <div class="form-group" style="margin-bottom: 0;">
+                <div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 600;">
+                  <span>Ingredient Wastage / Trimming Buffer:</span>
+                  <span id="overhead-wastage-val" style="color: var(--primary);">8%</span>
+                </div>
+                <input type="range" id="overhead-wastage" class="range-slider" min="0" max="25" value="8" step="1">
+              </div>
+            </div>
+          </div>
+
+          <!-- Overhead 2: Baker's Labor & Wage -->
+          <div class="overhead-section">
+            <div class="overhead-header">
+              <span>⏱️ Baker Labor & Hourly Wage</span>
+              <span class="badge badge-purple" id="labor-cost-badge">₹0</span>
+              <span class="toggle-icon">▼</span>
+            </div>
+            <div class="overhead-content">
+              <div class="overhead-grid-3">
+                <div class="form-group">
+                  <label class="form-label">Prep Time (Hours)</label>
+                  <input type="number" step="0.25" id="overhead-prep-time" class="form-control" value="0.75">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Decorating (Hours)</label>
+                  <input type="number" step="0.25" id="overhead-dec-time" class="form-control" value="0.5">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Hourly Wage (₹/hr)</label>
+                  <input type="number" id="overhead-labor-rate" class="form-control" value="200">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Overhead 3: Packaging -->
+          <div class="overhead-section">
+            <div class="overhead-header">
+              <span>📦 Cake Box, Board & Packaging</span>
+              <span class="badge badge-gold" id="pkg-cost-badge">₹0</span>
+              <span class="toggle-icon">▼</span>
+            </div>
+            <div class="overhead-content">
+              <div id="packaging-list-container"></div>
+              <button type="button" class="btn btn-secondary btn-sm" id="btn-add-pkg">+ Add Packaging Item</button>
+            </div>
+          </div>
+
+          <!-- Overhead 4: Custom Decorations -->
+          <div class="overhead-section">
+            <div class="overhead-header">
+              <span>✨ Toppers, Flowers & Decorations</span>
+              <span class="badge badge-emerald" id="dec-cost-badge">₹0</span>
+              <span class="toggle-icon">▼</span>
+            </div>
+            <div class="overhead-content">
+              <div id="decorations-list-container"></div>
+              <button type="button" class="btn btn-secondary btn-sm" id="btn-add-dec">+ Add Decoration Item</button>
+            </div>
+          </div>
+
+          <!-- Overhead 5: Logistics & Delivery -->
+          <div class="overhead-section">
+            <div class="overhead-header">
+              <span>🛵 Delivery & Logistics</span>
+              <span class="toggle-icon">▼</span>
+            </div>
+            <div class="overhead-content">
+              <div class="form-group" style="margin-bottom: 0;">
+                <label class="form-label">Delivery Charge (₹)</label>
+                <input type="number" id="overhead-delivery-cost" class="form-control" value="0" placeholder="0.00">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Visualizer & Health Diagnostic Card -->
+        <div class="card" style="margin-bottom: 12px; padding: 12px;">
+          <div class="card-title" style="font-size: 0.95rem; margin-bottom: 8px;">📊 Cost Breakdown & Health</div>
+          
+          <div id="cost-donut-container"></div>
+          <div id="margin-gauge-container"></div>
+          <div id="business-insights-container"></div>
+
+          <!-- Tiered Pricing Grid -->
+          <div class="tiered-price-grid">
+            <div class="tier-card">
+              <div class="tier-title"><span>Floor (Raw Cost)</span> <span>⚠️</span></div>
+              <div class="tier-price" id="tier-floor-price">₹0</div>
+            </div>
+            <div class="tier-card">
+              <div class="tier-title"><span>Break-Even</span> <span>⚖️</span></div>
+              <div class="tier-price" id="tier-breakeven-price">₹0</div>
+            </div>
+            <div class="tier-card">
+              <div class="tier-title"><span>Wholesale (25%)</span> <span>🏷️</span></div>
+              <div class="tier-price" id="tier-wholesale-price">₹0</div>
+            </div>
+            <div class="tier-card" style="border-color: var(--primary);">
+              <div class="tier-title" style="color: var(--primary);"><span>Recommended Retail</span> <span>💎</span></div>
+              <div class="tier-price" id="tier-retail-price" style="color: var(--primary);">₹0</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom Action Bar -->
+        <div style="display: flex; gap: 8px; justify-content: flex-end;">
+          <button type="button" class="btn btn-secondary" id="btn-new-recipe">✨ New Canvas</button>
+          <button type="button" class="btn btn-secondary" id="btn-duplicate-recipe">📋 Duplicate</button>
+          <button type="button" class="btn btn-primary" id="btn-save-recipe">💾 Save Recipe</button>
+        </div>
+      </section>
+
+      <!-- TAB 2: RECIPE BOOK -->
+      <section id="tab-recipes" class="tab-panel">
+        <div class="card" style="margin-bottom: 12px; padding: 12px;">
+          <div style="display: flex; gap: 8px; align-items: center;">
+            <input type="text" id="search-recipes-input" class="form-control" placeholder="🔍 Search saved recipes...">
+            <button type="button" class="btn btn-primary btn-sm" id="btn-new-recipe-tab">+ New</button>
+          </div>
+        </div>
+        <div class="recipe-book-grid" id="recipes-grid-container"></div>
+      </section>
+
+      <!-- TAB 3: WHATSAPP QUOTE & INVOICE -->
+      <section id="tab-quotes" class="tab-panel">
+        <div class="card" style="margin-bottom: 12px; padding: 12px;">
+          <div class="card-title" style="font-size: 0.95rem; margin-bottom: 10px;">💬 Client Order Quotation</div>
+          
+          <div class="overhead-grid-2" style="margin-bottom: 10px;">
+            <div class="form-group">
+              <label class="form-label">Client Name</label>
+              <input type="text" id="quote-client-name" class="form-control" placeholder="e.g. Priya Sharma">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Delivery Date & Time</label>
+              <input type="text" id="quote-delivery-date" class="form-control" placeholder="e.g. Saturday, 5 PM">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Custom Flavor & Message Notes</label>
+            <textarea id="quote-notes" class="form-control" rows="2" placeholder="e.g. Eggless, 'Happy 10th Birthday Ananya' on plaque, less sweet."></textarea>
+          </div>
+
+          <div style="margin-top: 14px;">
+            <label class="form-label">WhatsApp DM Formatted Text Preview</label>
+            <div id="whatsapp-preview-box" class="whatsapp-chat-preview"></div>
+          </div>
+
+          <div style="display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap;">
+            <button type="button" class="btn btn-success" id="btn-copy-whatsapp">📋 Copy WhatsApp Text</button>
+            <button type="button" class="btn btn-secondary" id="btn-print-client-quote">🖨️ Official Client Quote</button>
+            <button type="button" class="btn btn-secondary" id="btn-print-cost-sheet">📄 Master Cost Sheet</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 4: QUICK UNIT CONVERTER -->
+      <section id="tab-converter" class="tab-panel">
+        <div class="card" style="padding: 16px;">
+          <div class="card-title" style="font-size: 1rem; margin-bottom: 12px;">⚖️ Baker's Smart Unit Converter</div>
+          <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 14px;">
+            Convert between grams, cups, spoons, and milliliters with density adjustment for flours, sugars, and butter.
+          </p>
+
+          <div class="form-group">
+            <label class="form-label">Select Ingredient (for Density)</label>
+            <select id="conv-ingredient" class="form-control">
+              <option value="all purpose flour">🌾 All-Purpose Flour / Maida (1 cup = 125g)</option>
+              <option value="granulated sugar">🍬 Granulated / Castor Sugar (1 cup = 200g)</option>
+              <option value="powdered sugar">🍬 Icing / Powdered Sugar (1 cup = 120g)</option>
+              <option value="brown sugar">🍬 Brown Sugar (1 cup = 220g)</option>
+              <option value="butter">🧈 Butter (1 cup = 227g)</option>
+              <option value="cocoa powder">🍫 Cocoa Powder (1 cup = 100g)</option>
+              <option value="milk">🥛 Milk / Liquids (1 cup = 240ml)</option>
+              <option value="oil">🌻 Vegetable Oil (1 cup = 218g)</option>
+              <option value="baking powder">🧪 Baking Powder (1 tsp = ~4g)</option>
+            </select>
+          </div>
+
+          <div class="overhead-grid-3" style="align-items: center;">
+            <div class="form-group">
+              <label class="form-label">Amount</label>
+              <input type="number" id="conv-amount" class="form-control" value="1" step="any">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">From Unit</label>
+              <select id="conv-from-unit" class="form-control">
+                <option value="cup" selected>Cup (cup)</option>
+                <option value="tbsp">Tablespoon (tbsp)</option>
+                <option value="tsp">Teaspoon (tsp)</option>
+                <option value="g">Grams (g)</option>
+                <option value="kg">Kilograms (kg)</option>
+                <option value="ml">Milliliters (ml)</option>
+                <option value="oz">Ounces (oz)</option>
+                <option value="lb">Pounds (lb)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">To Unit</label>
+              <select id="conv-to-unit" class="form-control">
+                <option value="g" selected>Grams (g)</option>
+                <option value="cup">Cup (cup)</option>
+                <option value="tbsp">Tablespoon (tbsp)</option>
+                <option value="tsp">Teaspoon (tsp)</option>
+                <option value="ml">Milliliters (ml)</option>
+                <option value="oz">Ounces (oz)</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="background: var(--primary-subtle); border: 1px solid var(--primary); border-radius: var(--radius-md); padding: 14px; text-align: center; margin-top: 10px;">
+            <div style="font-size: 0.8rem; color: var(--primary); font-weight: 700; text-transform: uppercase;">Converted Value</div>
+            <div id="conv-result-val" style="font-size: 1.8rem; font-weight: 800; color: var(--primary); font-family: var(--font-heading);">
+              125.00 g
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 5: PANTRY MANAGER -->
+      <section id="tab-pantry" class="tab-panel">
+        <div class="card" style="padding: 12px;">
+          <div class="card-header" style="margin-bottom: 8px;">
+            <div class="card-title" style="font-size: 0.95rem;">🏪 Master Pantry & Pack Prices</div>
+            <button type="button" class="btn btn-primary btn-sm" id="btn-add-pantry-custom">+ Custom Item</button>
+          </div>
+          <input type="text" id="search-pantry-input" class="form-control" style="margin-bottom: 10px;" placeholder="🔍 Search pantry items...">
+          <div class="ingredient-table-wrapper" style="max-height: 380px;">
+            <table class="ingredient-table">
+              <thead>
+                <tr>
+                  <th>Item Name</th>
+                  <th>Category</th>
+                  <th>Pack Size</th>
+                  <th>Unit</th>
+                  <th>Price</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="pantry-manager-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 6: SETTINGS -->
+      <section id="tab-settings" class="tab-panel">
+        <div class="card" style="padding: 14px;">
+          <div class="card-title" style="font-size: 0.95rem; margin-bottom: 12px;">⚙️ Bakery Business Settings</div>
+
+          <form id="bakery-settings-form">
+            <div class="overhead-grid-2">
+              <div class="form-group">
+                <label class="form-label">Bakery / Brand Name</label>
+                <input type="text" id="set-bakery-name" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Baker / Chef Name</label>
+                <input type="text" id="set-baker-name" class="form-control">
+              </div>
+            </div>
+
+            <div class="overhead-grid-2">
+              <div class="form-group">
+                <label class="form-label">Phone / WhatsApp</label>
+                <input type="text" id="set-contact-phone" class="form-control">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Instagram Handle</label>
+                <input type="text" id="set-instagram" class="form-control">
+              </div>
+            </div>
+
+            <div class="overhead-grid-2">
+              <div class="form-group">
+                <label class="form-label">Currency Symbol</label>
+                <input type="text" id="set-currency-symbol" class="form-control" value="₹">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Currency Code</label>
+                <input type="text" id="set-currency-code" class="form-control" value="INR">
+              </div>
+            </div>
+
+            <div class="overhead-grid-3">
+              <div class="form-group">
+                <label class="form-label">Electricity Rate / kWh</label>
+                <input type="number" step="any" id="set-electricity-rate" class="form-control" value="8">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Default Oven Wattage (W)</label>
+                <input type="number" id="set-oven-wattage" class="form-control" value="2000">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Hourly Labor Wage Rate</label>
+                <input type="number" id="set-hourly-rate" class="form-control" value="200">
+              </div>
+            </div>
+
+            <div class="overhead-grid-2">
+              <div class="form-group">
+                <label class="form-label">Default Wastage Buffer (%)</label>
+                <input type="number" id="set-default-wastage" class="form-control" value="8">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Default Target Margin (%)</label>
+                <input type="number" id="set-default-margin" class="form-control" value="45">
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="margin-top: 10px; width: 100%;">Save Settings ✨</button>
+          </form>
+
+          <div style="margin-top: 20px; border-top: 1px solid var(--border-color); padding-top: 14px;">
+            <div class="form-label">Data Backup & Restore</div>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px;">
+              <button type="button" class="btn btn-secondary btn-sm" id="btn-export-backup">📦 Export Backup (JSON)</button>
+              <label class="btn btn-secondary btn-sm" style="margin-bottom: 0; cursor: pointer;">
+                📥 Import Backup
+                <input type="file" id="import-file-input" accept=".json" style="display: none;">
+              </label>
+              <button type="button" class="btn btn-ghost btn-sm" id="btn-reset-defaults" style="color: #ef4444;">🔄 Reset to Demo Data</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- PANTRY PICKER MODAL -->
+  <div class="modal-overlay" id="pantry-picker-modal">
+    <div class="modal-content">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+        <h3 style="font-size: 1.1rem;">⚡ Quick Pantry Selector</h3>
+        <button type="button" class="btn btn-ghost btn-sm btn-icon" id="btn-close-pantry-modal">✕</button>
+      </div>
+      <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 12px;">Click to immediately add common bakery ingredients with saved pack rates into your recipe.</p>
+      <div id="modal-pantry-list" style="max-height: 360px; overflow-y: auto;"></div>
+    </div>
+  </div>
+
+  <!-- JavaScript Modules -->
+  <script src="js/units.js"></script>
+  <script src="js/pantry.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/calculator.js"></script>
+  <script src="js/visualizer.js"></script>
+  <script src="js/quote-generator.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    // Open full tab listener
+    document.getElementById('btn-open-full-tab')?.addEventListener('click', () => {
+      if (typeof chrome !== 'undefined' && chrome.tabs && chrome.tabs.create) {
+        chrome.tabs.create({ url: 'dashboard.html' });
+      } else {
+        window.open('dashboard.html', '_blank');
+      }
+    });
+
+    // New recipe button on recipe tab
+    document.getElementById('btn-new-recipe-tab')?.addEventListener('click', () => {
+      App.createNewRecipe();
+      App.switchTab('studio');
+      App.renderStudio();
+    });
+  </script>
+</body>
+</html>
